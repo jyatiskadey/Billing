@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billing System</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #007bff;
+      color: white;
+      width: 100%;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      position: relative;
+    }
+
+    header button {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #ff4d4d;
+      border: none;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    header button:hover {
+      background-color: #e63939;
+    }
+
+    main {
+      width: 90%;
+      max-width: 600px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #007bff;
+    }
+
+    #transaction-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    #transaction-form input,
+    #transaction-form select,
+    #transaction-form button {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    #transaction-form button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #transaction-form button:hover {
+      background-color: #0056b3;
+    }
+
+    h2 {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 22px;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    ul li {
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .income {
+      color: #28a745;
+    }
+
+    .expense {
+      color: #dc3545;
+    }
+
+    #balance {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    Billing System
+    <button id="logout-btn">Logout</button>
+  </header>
+  
+  <main>
+    <h1>Total Balance: ₹<span id="balance">0</span></h1>
+
+    <form id="transaction-form">
+      <input type="text" id="description" placeholder="Description" required />
+      <select id="type" required>
+        <option value="Income">Income</option>
+        <option value="Expense">Expense</option>
+      </select>
+      <input type="number" id="amount" placeholder="Amount" required />
+      <button type="submit">Add Transaction</button>
+    </form>
+
+    <h2>Transactions</h2>
+    <ul id="transaction-list"></ul>
+  </main>
+
+  <script>
+    // Redirect if not logged in
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/login.html";
+    }
+
+    // Fetch and display transactions
+    async function fetchTransactions() {
+      const response = await fetch("http://localhost:5000/api/transactions", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const data = await response.json();
+      const transactionList = document.getElementById("transaction-list");
+      transactionList.innerHTML = "";
+      let totalBalance = 0;
+
+      if (response.ok) {
+        data.transactions.forEach((transaction) => {
+          totalBalance += transaction.type === "Income" ? transaction.amount : -transaction.amount;
+
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <span>${transaction.description}</span>
+            <span class="${transaction.type.toLowerCase()}">${transaction.type} - ₹${transaction.amount}</span>
+          `;
+          transactionList.appendChild(li);
+        });
+
+        document.getElementById("balance").innerText = totalBalance.toFixed(2);
+      } else {
+        alert(data.message);
+      }
+    }
+
+    // Add a transaction
+    document.getElementById("transaction-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const description = document.getElementById("description").value;
+      const type = document.getElementById("type").value;
+      const amount = parseFloat(document.getElementById("amount").value);
+
+      const response = await fetch("http://localhost:5000/api/transactions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ description, type, amount }),
+      });
+
+      if (response.ok) {
+        fetchTransactions();
+      } else {
+        alert("Failed to add transaction");
+      }
+
+      // Reset form
+      document.getElementById("transaction-form").reset();
+    });
+
+    // Logout functionality
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      localStorage.removeItem("token");
+      window.location.href = "/login.html";
+    });
+
+    // Initial fetch of transactions
+    fetchTransactions();
+  </script>
+</body>
+</html>
