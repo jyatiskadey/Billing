@@ -16,22 +16,25 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       min-height: 100vh;
-      background: linear-gradient(to bottom right, #f8f9fa, #dde1e7);
+      background: linear-gradient(135deg, #e2e2e2, #d8d8d8);
       color: #333;
+      transition: all 0.3s ease;
     }
 
     header {
-      background-color: #007bff;
+      background-color: #4e73df;
       color: white;
       width: 100%;
-      padding: 15px;
+      padding: 20px;
       text-align: center;
-      font-size: 24px;
-      position: relative;
+      font-size: 28px;
       font-weight: bold;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      margin-bottom: 20px;
     }
 
     header button {
@@ -47,6 +50,7 @@
       cursor: pointer;
       font-size: 16px;
       font-weight: bold;
+      transition: background-color 0.3s ease;
     }
 
     header button:hover {
@@ -55,76 +59,98 @@
 
     main {
       width: 90%;
-      max-width: 600px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      padding: 25px;
-      margin-top: 20px;
+      max-width: 650px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
       text-align: center;
+      animation: fadeIn 0.7s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     h1 {
-      font-size: 28px;
+      font-size: 32px;
       color: #007bff;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      font-weight: 600;
     }
 
     #transaction-form {
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      margin-bottom: 20px;
+      gap: 20px;
+      margin-bottom: 25px;
     }
 
     #transaction-form input,
     #transaction-form select,
     #transaction-form button {
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+      padding: 14px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
       font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    #transaction-form input:focus,
+    #transaction-form select:focus {
+      outline: none;
+      border-color: #4e73df;
+      box-shadow: 0 0 8px rgba(78, 115, 223, 0.5);
     }
 
     #transaction-form button {
-      background-color: #007bff;
+      background-color: #4e73df;
       color: white;
       border: none;
       cursor: pointer;
       font-weight: bold;
-      transition: all 0.3s ease;
     }
 
     #transaction-form button:hover {
-      background-color: #0056b3;
+      background-color: #2e59d9;
+      transform: scale(1.05);
     }
 
     h2 {
-      margin-top: 20px;
-      font-size: 22px;
+      font-size: 24px;
+      margin-top: 30px;
       color: #333;
     }
 
     ul {
       list-style: none;
       padding: 0;
+      margin-top: 10px;
     }
 
     ul li {
       background: #f9f9f9;
-      border: 1px solid #ccc;
-      padding: 12px;
-      border-radius: 5px;
-      margin-bottom: 10px;
+      border: 2px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
       display: flex;
       justify-content: space-between;
-      font-size: 16px;
-      font-weight: bold;
+      font-size: 18px;
+      font-weight: 500;
       transition: all 0.3s ease;
     }
 
     ul li:hover {
       background-color: #e9ecef;
+      transform: translateY(-3px);
     }
 
     .income {
@@ -136,32 +162,76 @@
     }
 
     #balance {
-      font-size: 22px;
+      font-size: 26px;
       font-weight: bold;
       color: #333;
     }
 
     footer {
-      margin-top: 20px;
+      margin-top: 30px;
       padding: 15px;
       text-align: center;
-      background-color: #007bff;
+      background-color: #4e73df;
       color: white;
-      font-size: 16px;
+      font-size: 18px;
       width: 100%;
       font-weight: bold;
-      position: absolute;
+      position: relative;
       bottom: 0;
     }
 
+    .confirmation-box {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: none;
+      border-radius: 10px;
+      z-index: 100000000;
+    }
+
+    .confirmation-box button {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #4e73df;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .confirmation-box button:hover {
+      background-color: #2e59d9;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+
+      ul li {
+        font-size: 16px;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
-    Billing System
+    
     <button id="logout-btn">Logout</button>
   </header>
-  
+
   <main>
     <h1>Total Balance: ₹<span id="balance">0</span></h1>
 
@@ -175,20 +245,28 @@
       <button type="submit">Add Transaction</button>
     </form>
 
-    <h2>Transactions</h2>
-    <ul id="transaction-list"></ul>
+    <button id="view-transactions-btn">View Transactions</button>
+
+    <div id="transaction-section" style="display: none;">
+      <h2>Transactions</h2>
+      <ul id="transaction-list"></ul>
+    </div>
   </main>
 
-  <footer>Developed by Somu</footer>
+  <div class="confirmation-box" id="confirmation-box">
+    <p>Are you sure you want to log out?</p>
+    <button id="confirm-logout-btn">Yes</button>
+    <button id="cancel-logout-btn">No</button>
+  </div>
+
+  <footer>Developed and Designed by Somu</footer>
 
   <script>
-    // Redirect if not logged in
     const token = localStorage.getItem("token");
     if (!token) {
       window.location.href = "/login.html";
     }
 
-    // Fetch and display transactions
     async function fetchTransactions() {
       const response = await fetch("http://localhost:5000/api/transactions", {
         headers: { Authorization: `Bearer ${token}` },
@@ -204,7 +282,7 @@
           totalBalance += transaction.type === "Income" ? transaction.amount : -transaction.amount;
 
           const li = document.createElement("li");
-          li.innerHTML = `
+          li.innerHTML = ` 
             <span>${transaction.description}</span>
             <span class="${transaction.type.toLowerCase()}">${transaction.type} - ₹${transaction.amount}</span>
           `;
@@ -217,7 +295,6 @@
       }
     }
 
-    // Add a transaction
     document.getElementById("transaction-form").addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -237,19 +314,33 @@
         alert("Failed to add transaction");
       }
 
-      // Reset form
       document.getElementById("transaction-form").reset();
     });
 
-    // Logout functionality
-    document.getElementById("logout-btn").addEventListener("click", () => {
-      if (confirm("Are you sure you want to log out?")) {
-        localStorage.removeItem("token");
-        window.location.href = "/login.html";
+    document.getElementById("view-transactions-btn").addEventListener("click", () => {
+      const transactionSection = document.getElementById("transaction-section");
+      if (transactionSection.style.display === "none") {
+        transactionSection.style.display = "block";
+        document.getElementById("view-transactions-btn").innerText = "Hide Transactions";
+      } else {
+        transactionSection.style.display = "none";
+        document.getElementById("view-transactions-btn").innerText = "View Transactions";
       }
     });
 
-    // Initial fetch of transactions
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      document.getElementById("confirmation-box").style.display = "block";
+    });
+
+    document.getElementById("confirm-logout-btn").addEventListener("click", () => {
+      localStorage.removeItem("token");
+      window.location.href = "/login.html";
+    });
+
+    document.getElementById("cancel-logout-btn").addEventListener("click", () => {
+      document.getElementById("confirmation-box").style.display = "none";
+    });
+
     fetchTransactions();
   </script>
 </body>
