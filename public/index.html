@@ -9,17 +9,17 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
     }
 
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      color: #333;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      background: linear-gradient(to bottom right, #f8f9fa, #dde1e7);
+      color: #333;
     }
 
     header {
@@ -30,6 +30,8 @@
       text-align: center;
       font-size: 24px;
       position: relative;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     header button {
@@ -44,6 +46,7 @@
       border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
+      font-weight: bold;
     }
 
     header button:hover {
@@ -56,14 +59,15 @@
       background: white;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      padding: 20px;
+      padding: 25px;
+      margin-top: 20px;
+      text-align: center;
     }
 
     h1 {
-      text-align: center;
-      margin-bottom: 20px;
       font-size: 28px;
       color: #007bff;
+      margin-bottom: 15px;
     }
 
     #transaction-form {
@@ -76,7 +80,7 @@
     #transaction-form input,
     #transaction-form select,
     #transaction-form button {
-      padding: 10px;
+      padding: 12px;
       border: 1px solid #ccc;
       border-radius: 5px;
       font-size: 16px;
@@ -87,7 +91,8 @@
       color: white;
       border: none;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      font-weight: bold;
+      transition: all 0.3s ease;
     }
 
     #transaction-form button:hover {
@@ -95,23 +100,31 @@
     }
 
     h2 {
-      text-align: center;
-      margin: 20px 0;
+      margin-top: 20px;
       font-size: 22px;
+      color: #333;
     }
 
     ul {
       list-style: none;
+      padding: 0;
     }
 
     ul li {
       background: #f9f9f9;
       border: 1px solid #ccc;
-      padding: 10px;
+      padding: 12px;
       border-radius: 5px;
       margin-bottom: 10px;
       display: flex;
       justify-content: space-between;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    ul li:hover {
+      background-color: #e9ecef;
     }
 
     .income {
@@ -123,8 +136,24 @@
     }
 
     #balance {
+      font-size: 22px;
       font-weight: bold;
+      color: #333;
     }
+
+    footer {
+      margin-top: 20px;
+      padding: 15px;
+      text-align: center;
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      width: 100%;
+      font-weight: bold;
+      position: absolute;
+      bottom: 0;
+    }
+
   </style>
 </head>
 <body>
@@ -149,6 +178,8 @@
     <h2>Transactions</h2>
     <ul id="transaction-list"></ul>
   </main>
+
+  <footer>Developed by Somu</footer>
 
   <script>
     // Redirect if not logged in
@@ -212,8 +243,10 @@
 
     // Logout functionality
     document.getElementById("logout-btn").addEventListener("click", () => {
-      localStorage.removeItem("token");
-      window.location.href = "/login.html";
+      if (confirm("Are you sure you want to log out?")) {
+        localStorage.removeItem("token");
+        window.location.href = "/login.html";
+      }
     });
 
     // Initial fetch of transactions
