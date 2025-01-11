@@ -268,7 +268,7 @@
     }
 
     async function fetchTransactions() {
-      const response = await fetch("http://localhost:5000/api/transactions", {
+      const response = await fetch("https://billing-7b68.onrender.com/api/auth/transactions", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
