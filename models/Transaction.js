@@ -5,6 +5,7 @@ const transactionSchema = new mongoose.Schema({
   description: { type: String, required: true },
   type: { type: String, enum: ["Income", "Expense"], required: true },
   amount: { type: Number, required: true },
+  paymentMethod: { type: String, enum: ["Cash", "UPI"], required: true }, // Added paymentMethod
   createdAt: { type: Date, default: Date.now },
 });
 
