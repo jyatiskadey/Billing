@@ -302,7 +302,7 @@
       const type = document.getElementById("type").value;
       const amount = parseFloat(document.getElementById("amount").value);
 
-      const response = await fetch("http://localhost:5000/api/transactions", {
+      const response = await fetch("https://billing-7b68.onrender.com/api/transactions", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ description, type, amount }),
