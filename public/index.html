@@ -9,32 +9,31 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Poppins', sans-serif;
     }
 
     body {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       min-height: 100vh;
-      background: linear-gradient(135deg, #e2e2e2, #d8d8d8);
-      color: #333;
+      background: linear-gradient(135deg, #4e73df, #2e59d9);
+      color: white;
       transition: all 0.3s ease;
     }
 
     header {
-      background-color: #4e73df;
-      color: white;
+      background: #ffffff;
+      color: #333;
       width: 100%;
       padding: 20px;
       text-align: center;
       font-size: 28px;
       font-weight: bold;
-      position: relative;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       border-radius: 10px;
-      margin-bottom: 20px;
+      position: relative;
     }
 
     header button {
@@ -53,213 +52,76 @@
       transition: background-color 0.3s ease;
     }
 
-    header button:hover {
-      background-color: #e63939;
-    }
-
     main {
       width: 90%;
-      max-width: 650px;
-      background: #fff;
+      max-width: 600px;
+      background: white;
       border-radius: 12px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
       padding: 30px;
       text-align: center;
-      animation: fadeIn 0.7s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    h1 {
-      font-size: 32px;
-      color: #007bff;
-      margin-bottom: 20px;
-      font-weight: 600;
+      color: #333;
     }
 
     #transaction-form {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      margin-bottom: 25px;
+      gap: 15px;
+      margin-bottom: 20px;
     }
 
-    #transaction-form input,
-    #transaction-form select,
+    #transaction-form input, 
+    #transaction-form select, 
     #transaction-form button {
-      padding: 14px;
+      padding: 12px;
       border: 2px solid #ccc;
       border-radius: 8px;
       font-size: 16px;
       transition: all 0.3s ease;
     }
 
-    #transaction-form input:focus,
-    #transaction-form select:focus {
-      outline: none;
-      border-color: #4e73df;
-      box-shadow: 0 0 8px rgba(78, 115, 223, 0.5);
-    }
-
     #transaction-form button {
       background-color: #4e73df;
       color: white;
-      border: none;
-      cursor: pointer;
       font-weight: bold;
-    }
-
-    #transaction-form button:hover {
-      background-color: #2e59d9;
-      transform: scale(1.05);
-    }
-
-    h2 {
-      font-size: 24px;
-      margin-top: 30px;
-      color: #333;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin-top: 10px;
+      cursor: pointer;
     }
 
     ul li {
       background: #f9f9f9;
-      border: 2px solid #ddd;
       padding: 15px;
       border-radius: 8px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       display: flex;
       justify-content: space-between;
-      font-size: 18px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-
-    ul li:hover {
-      background-color: #e9ecef;
-      transform: translateY(-3px);
-    }
-
-    .income {
-      color: #28a745;
-    }
-
-    .expense {
-      color: #dc3545;
-    }
-
-    #balance {
-      font-size: 26px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    footer {
-      margin-top: 30px;
-      padding: 15px;
-      text-align: center;
-      background-color: #4e73df;
-      color: white;
-      font-size: 18px;
-      width: 100%;
-      font-weight: bold;
-      position: relative;
-      bottom: 0;
-    }
-
-    .confirmation-box {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #fff;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      display: none;
-      border-radius: 10px;
-      z-index: 100000000;
-    }
-
-    .confirmation-box button {
-      margin-top: 10px;
-      padding: 10px;
-      border-radius: 5px;
-      background-color: #4e73df;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    .confirmation-box button:hover {
-      background-color: #2e59d9;
-    }
-
-    @media (max-width: 768px) {
-      main {
-        padding: 20px;
-      }
-
-      h1 {
-        font-size: 28px;
-      }
-
-      h2 {
-        font-size: 22px;
-      }
-
-      ul li {
-        font-size: 16px;
-      }
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
   <header>
-    
+    Billing System
     <button id="logout-btn">Logout</button>
   </header>
 
   <main>
     <h1>Total Balance: ₹<span id="balance">0</span></h1>
-
     <form id="transaction-form">
       <input type="text" id="description" placeholder="Description" required />
       <select id="type" required>
         <option value="Income">Income</option>
         <option value="Expense">Expense</option>
       </select>
+      <select id="payment-method" required>
+        <option value="Cash">Cash</option>
+        <option value="UPI">UPI</option>
+      </select>
       <input type="number" id="amount" placeholder="Amount" required />
       <button type="submit">Add Transaction</button>
     </form>
-
-    <button id="view-transactions-btn">View Transactions</button>
-
-    <div id="transaction-section" style="display: none;">
-      <h2>Transactions</h2>
-      <ul id="transaction-list"></ul>
-    </div>
+    <h2>Transactions</h2>
+    <ul id="transaction-list"></ul>
   </main>
-
-  <div class="confirmation-box" id="confirmation-box">
-    <p>Are you sure you want to log out?</p>
-    <button id="confirm-logout-btn">Yes</button>
-    <button id="cancel-logout-btn">No</button>
-  </div>
-
-  <footer>Developed and Designed by Somu</footer>
 
   <script>
     const token = localStorage.getItem("token");
@@ -273,72 +135,39 @@
       });
 
       const data = await response.json();
-      const transactionList = document.getElementById("transaction-list");
-      transactionList.innerHTML = "";
+      document.getElementById("transaction-list").innerHTML = "";
       let totalBalance = 0;
-
+      
       if (response.ok) {
         data.transactions.forEach((transaction) => {
           totalBalance += transaction.type === "Income" ? transaction.amount : -transaction.amount;
 
           const li = document.createElement("li");
           li.innerHTML = ` 
-            <span>${transaction.description}</span>
+            <span>${transaction.description} (${transaction.paymentMethod})</span>
             <span class="${transaction.type.toLowerCase()}">${transaction.type} - ₹${transaction.amount}</span>
           `;
-          transactionList.appendChild(li);
+          document.getElementById("transaction-list").appendChild(li);
         });
-
         document.getElementById("balance").innerText = totalBalance.toFixed(2);
-      } else {
-        alert(data.message);
       }
     }
 
     document.getElementById("transaction-form").addEventListener("submit", async (e) => {
       e.preventDefault();
-
       const description = document.getElementById("description").value;
       const type = document.getElementById("type").value;
       const amount = parseFloat(document.getElementById("amount").value);
+      const paymentMethod = document.getElementById("payment-method").value;
 
-      const response = await fetch("https://billing-7b68.onrender.com/api/transactions", {
+      await fetch("https://billing-7b68.onrender.com/api/transactions", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ description, type, amount }),
+        body: JSON.stringify({ description, type, amount, paymentMethod }),
       });
 
-      if (response.ok) {
-        fetchTransactions();
-      } else {
-        alert("Failed to add transaction");
-      }
-
+      fetchTransactions();
       document.getElementById("transaction-form").reset();
-    });
-
-    document.getElementById("view-transactions-btn").addEventListener("click", () => {
-      const transactionSection = document.getElementById("transaction-section");
-      if (transactionSection.style.display === "none") {
-        transactionSection.style.display = "block";
-        document.getElementById("view-transactions-btn").innerText = "Hide Transactions";
-      } else {
-        transactionSection.style.display = "none";
-        document.getElementById("view-transactions-btn").innerText = "View Transactions";
-      }
-    });
-
-    document.getElementById("logout-btn").addEventListener("click", () => {
-      document.getElementById("confirmation-box").style.display = "block";
-    });
-
-    document.getElementById("confirm-logout-btn").addEventListener("click", () => {
-      localStorage.removeItem("token");
-      window.location.href = "/login.html";
-    });
-
-    document.getElementById("cancel-logout-btn").addEventListener("click", () => {
-      document.getElementById("confirmation-box").style.display = "none";
     });
 
     fetchTransactions();
