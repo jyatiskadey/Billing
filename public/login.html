@@ -3,241 +3,207 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Billing System</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
 
     body {
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to bottom right, #6a11cb, #2575fc);
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-
-    .login-container {
-      background: #fff;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 450px;
-      text-align: center;
-      animation: slideIn 0.7s ease-out;
-    }
-
-    @keyframes slideIn {
-      from {
-        transform: translateY(-50px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .login-container h1 {
-      margin-bottom: 15px;
-      color: #2575fc;
-      font-size: 36px;
-      letter-spacing: 1px;
-      font-weight: 600;
-      animation: fadeInText 1.2s ease-in-out;
-    }
-
-    @keyframes fadeInText {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-
-    .login-container form {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-    }
-
-    .login-container input {
-      padding: 14px;
-      font-size: 16px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      transition: 0.3s ease-in-out;
-    }
-
-    .login-container input:focus {
-      outline: none;
-      border-color: #2575fc;
-      box-shadow: 0 0 8px rgba(37, 117, 252, 0.5);
-    }
-
-    .login-container button {
-      padding: 14px;
-      background-color: #2575fc;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #4e73df, #2e59d9);
       color: white;
+      transition: all 0.3s ease;
+    }
+
+    header {
+      background: #ffffff;
+      color: #333;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      position: relative;
+    }
+
+    header button {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #ff4d4d;
       border: none;
-      border-radius: 8px;
-      font-size: 18px;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
     }
 
-    .login-container button:hover {
-      background-color: #1e58b2;
-      transform: scale(1.05);
+    main {
+      width: 90%;
+      max-width: 600px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      padding: 30px;
+      text-align: center;
+      color: #333;
     }
 
-    .login-container p {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #555;
-    }
-
-    .login-container a {
-      color: #2575fc;
-      text-decoration: none;
+    .balance-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      font-size: 18px;
       font-weight: bold;
     }
 
-    .login-container a:hover {
-      text-decoration: underline;
-    }
-
-    .toast {
-      visibility: hidden;
-      min-width: 250px;
-      margin-left: -125px;
-      background-color: #2575fc;
-      color: white;
-      text-align: center;
-      border-radius: 2px;
-      padding: 12px;
-      position: fixed;
-      z-index: 1;
-      left: 50%;
-      bottom: 30px;
-      font-size: 17px;
-      box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
-      animation: fadeInToast 0.5s, fadeOutToast 0.5s 3s;
-    }
-
-    @keyframes fadeInToast {
-      from {
-        bottom: 0;
-        opacity: 0;
-      }
-      to {
-        bottom: 30px;
-        opacity: 1;
-      }
-    }
-
-    @keyframes fadeOutToast {
-      from {
-        opacity: 1;
-      }
-      to {
-        opacity: 0;
-        bottom: 0;
-      }
-    }
-
-    .toast.show {
-      visibility: visible;
-    }
-
-    .logo {
-      width: 60px;
-      height: 60px;
+    #transaction-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
       margin-bottom: 20px;
-      animation: logoBounce 1s ease-in-out infinite;
     }
 
-    @keyframes logoBounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
+    #transaction-form input, 
+    #transaction-form select, 
+    #transaction-form button {
+      padding: 12px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
     }
 
-    @media (max-width: 480px) {
-      .login-container {
-        padding: 25px;
-      }
+    #transaction-form button {
+      background-color: #4e73df;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-      .login-container h1 {
-        font-size: 28px;
-      }
+    ul li {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+    }
 
-      .login-container button {
-        font-size: 16px;
-      }
+    footer {
+      margin-top: 20px;
+      padding: 10px;
+      text-align: center;
+      background: #ffffff;
+      color: #333;
+      font-size: 16px;
+      width: 100%;
+      font-weight: bold;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <img src="logo.png" alt="Logo" class="logo" /> <!-- Replace with your logo -->
-    <h1>Welcome Back</h1>
-    <form id="login-form">
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-    </form>
-  </div>
+  <header>
+    Billing System
+    <button id="logout-btn">Logout</button>
+  </header>
 
-  <div id="toast" class="toast">Login Successful!</div>
+  <main>
+    <div class="balance-container">
+      <div>Total Balance: ₹<span id="balance">0</span></div>
+      <div>Cash: ₹<span id="cash-balance">0</span></div>
+      <div>UPI: ₹<span id="upi-balance">0</span></div>
+    </div>
+    <form id="transaction-form">
+      <input type="text" id="description" placeholder="Description" required />
+      <select id="type" required>
+        <option value="Income">Income</option>
+        <option value="Expense">Expense</option>
+      </select>
+      <select id="payment-method" required>
+        <option value="Cash">Cash</option>
+        <option value="UPI">UPI</option>
+      </select>
+      <input type="number" id="amount" placeholder="Amount" required />
+      <button type="submit">Add Transaction</button>
+    </form>
+    <button id="toggle-transactions-btn">Show Transactions</button>
+    <div id="transaction-container" style="display: none;">
+      <h2>Transactions</h2>
+      <ul id="transaction-list"></ul>
+    </div>
+  </main>
+
+  <footer>Developed and Designed by Somu</footer>
 
   <script>
-    document.getElementById("login-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/login.html";
+    }
 
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+    async function fetchTransactions() {
+      const response = await fetch("https://billing-7b68.onrender.com/api/transactions", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-      try {
-        const response = await fetch("https://billing-7b68.onrender.com/api/auth/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
+      const data = await response.json();
+      document.getElementById("transaction-list").innerHTML = "";
+      let totalBalance = 0, cashBalance = 0, upiBalance = 0;
+      
+      if (response.ok) {
+        data.transactions.reverse().forEach((transaction) => {
+          totalBalance += transaction.type === "Income" ? transaction.amount : -transaction.amount;
+          if (transaction.paymentMethod === "Cash") {
+            cashBalance += transaction.type === "Income" ? transaction.amount : -transaction.amount;
+          } else {
+            upiBalance += transaction.type === "Income" ? transaction.amount : -transaction.amount;
+          }
+
+          const li = document.createElement("li");
+          li.innerHTML = ` 
+            <span>${transaction.description} (${transaction.paymentMethod})</span>
+            <span class="${transaction.type.toLowerCase()}">${transaction.type} - ₹${transaction.amount}</span>
+          `;
+          document.getElementById("transaction-list").appendChild(li);
         });
-
-        const data = await response.json();
-        if (response.ok) {
-          localStorage.setItem("token", data.token);
-          document.getElementById("toast").classList.add("show");
-          setTimeout(() => {
-            window.location.href = "/index.html";
-          }, 3000);
-        } else {
-          alert(data.message);
-        }
-      } catch (error) {
-        console.error("Error during login:", error);
-        alert("Something went wrong. Please try again later.");
+        document.getElementById("balance").innerText = totalBalance.toFixed(2);
+        document.getElementById("cash-balance").innerText = cashBalance.toFixed(2);
+        document.getElementById("upi-balance").innerText = upiBalance.toFixed(2);
       }
+    }
+
+    document.getElementById("transaction-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const description = document.getElementById("description").value;
+      const type = document.getElementById("type").value;
+      const amount = parseFloat(document.getElementById("amount").value);
+      const paymentMethod = document.getElementById("payment-method").value;
+
+      await fetch("https://billing-7b68.onrender.com/api/transactions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ description, type, amount, paymentMethod }),
+      });
+
+      fetchTransactions();
+      document.getElementById("transaction-form").reset();
     });
   </script>
 </body>
