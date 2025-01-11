@@ -96,6 +96,18 @@
       justify-content: space-between;
       font-size: 16px;
     }
+
+    footer {
+      margin-top: 20px;
+      padding: 10px;
+      text-align: center;
+      background: #ffffff;
+      color: #333;
+      font-size: 16px;
+      width: 100%;
+      font-weight: bold;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -119,9 +131,14 @@
       <input type="number" id="amount" placeholder="Amount" required />
       <button type="submit">Add Transaction</button>
     </form>
-    <h2>Transactions</h2>
-    <ul id="transaction-list"></ul>
+    <button id="toggle-transactions-btn">Show Transactions</button>
+    <div id="transaction-container" style="display: none;">
+      <h2>Transactions</h2>
+      <ul id="transaction-list"></ul>
+    </div>
   </main>
+
+  <footer>Developed and Designed by Somu</footer>
 
   <script>
     const token = localStorage.getItem("token");
@@ -139,7 +156,7 @@
       let totalBalance = 0;
       
       if (response.ok) {
-        data.transactions.forEach((transaction) => {
+        data.transactions.reverse().forEach((transaction) => {
           totalBalance += transaction.type === "Income" ? transaction.amount : -transaction.amount;
 
           const li = document.createElement("li");
@@ -170,7 +187,15 @@
       document.getElementById("transaction-form").reset();
     });
 
-    fetchTransactions();
+    document.getElementById("toggle-transactions-btn").addEventListener("click", () => {
+      const transactionContainer = document.getElementById("transaction-container");
+      if (transactionContainer.style.display === "none") {
+        transactionContainer.style.display = "block";
+        fetchTransactions();
+      } else {
+        transactionContainer.style.display = "none";
+      }
+    });
   </script>
 </body>
 </html>
