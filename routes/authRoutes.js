@@ -8,38 +8,34 @@ const router = express.Router();
 
 // Register
 router.post("/register", async (req, res) => {
-  const { email, password, roleName } = req.body;
+  const { email, password } = req.body;
 
   // Check if all fields are provided
-  if (!email || !password || !roleName) {
-    return res.status(400).json({ message: "All fields are required" });
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
   }
 
   try {
-    // Check if roleName exists in the Role collection
-    const role = await Role.findOne({ name: roleName });
-    if (!role) {
-      return res.status(400).json({ message: "Invalid role name" });
+    // Check if the email already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email is already registered" });
     }
 
-    // Create new user with the found roleId
+    // Create new user
     const user = new User({
       email,
-      password,
-      roleId: role._id,  // Save the roleId
+      password, // Password will be hashed before saving (handled in the User model)
     });
 
     // Save user to the database
     await user.save();
 
-    // Send a success response
     res.status(201).json({
       message: "User registered successfully",
       user: {
         _id: user._id,
         email: user.email,
-        roleId: role._id,  // Send roleId in response
-        roleName: role.name,  // Send roleName in response
       },
     });
   } catch (error) {
@@ -47,6 +43,7 @@ router.post("/register", async (req, res) => {
     res.status(500).json({ message: "Error registering user", error });
   }
 });
+
 
 
 // Login
